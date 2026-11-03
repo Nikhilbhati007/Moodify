@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+  engineType = "binary"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int        @id @default(autoincrement())
+  username     String     @unique
+  passwordHash String
+  playlists    Playlist[]
+  moodLogs     MoodLog[]
+  likedSongs   LikedSong[]
+  createdAt    DateTime   @default(now())
+}
+
+model Playlist {
+  id        Int             @id @default(autoincrement())
+  name      String
+  mood_tag  String
+  userId    Int
+  user      User            @relation(fields: [userId], references: [id])
+  tracks    PlaylistTrack[]
+  createdAt DateTime        @default(now())
+}
+
+model PlaylistTrack {
+  id         Int      @id @default(autoincrement())
+  playlistId Int
+  playlist   Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+  trackId    String
+  title      String
+  artist     String
+  imageUrl   String?
+  previewUrl String?
+  addedAt    DateTime @default(now())
+
+  @@unique([playlistId, trackId])
+}
+
+model MoodLog {
+  id         Int      @id @default(autoincrement())
+  mood_label String
+  confidence Float?
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id])
+  timestamp  DateTime @default(now())
+}
+
+model LikedSong {
+  id         Int      @id @default(autoincrement())
+  trackId    String
+  title      String
+  artist     String
+  imageUrl   String?
+  previewUrl String?
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id])
+  createdAt  DateTime @default(now())
+
+  @@unique([userId, trackId])
+}

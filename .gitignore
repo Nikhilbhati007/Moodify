@@ -1,0 +1,60 @@
+# Environment and secrets
+.env
+.env.*
+*.env
+!.env.example
+!.env.*.example
+local.properties
+/local.properties
+
+# Dependencies
+node_modules/
+/.pnp
+.pnp.js
+
+# Database
+*.db
+*.db-journal
+dev.db
+backend/dev.db
+backend/prisma/dev.db
+
+# Logs and debug files
+*.log
+log.txt
+my_tunnel.log
+tunnel.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Android & Gradle
+.gradle/
+build/
+*/build/
+*/*/build/
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+*.iml
+.kotlin/
+
+# IDE & OS files
+.idea/
+*/.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Python / Virtual Environment
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Unrelated temporary folders
+convert_into_tiff/
